@@ -1,0 +1,56 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<jsp:include page="../../common/basePath.jsp"></jsp:include>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑页面</title>
+
+</head>
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center',border:false" style="padding:10px;background:#fff;border:1px solid #ccc;">
+        <form id="ff" class="easyui-form" method="post" data-options="novalidate:false">
+	    	<table cellpadding="5">
+	    		<input type="hidden" name="id" value="${entity.id}" />
+	    		#fieldForm#
+	    	</table>
+	    </form>
+    </div>
+    <div data-options="region:'south',border:false" style="text-align:center;padding:5px 0;">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm(this)">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="closeForm()">取消</a>
+    </div>
+</div>
+	<script type="text/javascript">
+        function submitForm(obj){
+            $(obj).jqLoading();
+			$('#ff').form('submit', {
+				url: "${ctx}/#url_path#/update",
+				onSubmit: function(){
+					var isValid = $(this).form('enableValidation').form('validate');
+					if (!isValid){
+                        $(obj).jqLoading("destroy");
+					}
+					return isValid;	// 返回false终止表单提交
+				},
+				success: function(data){
+                    $(obj).jqLoading("destroy");
+					var data = eval('(' + data + ')');  
+			        if (data.success){
+			        	$("#win").window("close");
+			        	grid_.datagrid('reload');//添加成功重新加载数据
+			        } else {
+			        	$.messager.alert('提示',data.msg,'error');
+			        }
+				}
+			});
+			return false;
+		}
+        function closeForm(){
+            $("#win").window("close");
+        }
+	</script>
+</body>
+</html>

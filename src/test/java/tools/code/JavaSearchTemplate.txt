@@ -1,0 +1,11 @@
+package #packageName#.model.search;
+
+import com.ritian.common.BaseSearch;
+
+/**
+ * @author AUTHOR
+ * @date CREATE_DATE
+ **/
+public class #className#Search extends BaseSearch {
+
+}

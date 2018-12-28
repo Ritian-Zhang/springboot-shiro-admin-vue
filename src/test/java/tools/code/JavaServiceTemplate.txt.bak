@@ -1,0 +1,104 @@
+package #packagePreName#.#packageExtName#.service;
+
+import com.ccamazing.common.service.BaseService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import #packageName#.dao.#className#Dao;
+import #packageName#.model.#className#;
+import #packageName#.model.search.#className#Search;
+import org.springframework.stereotype.Service;
+import com.ccamazing.common.utils.BeanUtils;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * @author AUTHOR
+ * @date CREATE_DATE
+ **/
+@Service
+public class #className#Service extends BaseService{
+    @Resource
+    private #className#Dao #daoName#;
+
+    /**
+    * 分页
+    */
+    public Page<#className#> page(#className#Search search) {
+        Page<#className#> pages = PageHelper.startPage(search.getPage(),search.getRows(),search.orderBy());
+        #daoName#.list(search);
+        return pages;
+    }
+    /**
+     * 查询所有
+     */
+     public List<#className#> list(#className#Search search) {
+            PageHelper.orderBy(search.orderBy());
+            return #daoName#.list(search);
+     }
+
+       /**
+          * 分页
+          */
+        /* public Page<#className#Vo> pageVo(#className#Search search) {
+             Page<#className#> pages = PageHelper.startPage(search.getPage(),
+                     search.getRows(), search.orderBy());
+             #daoName#.list(search);
+             Page<#className#Vo> vos = new Page<>(pages.getPageNum(),
+                     pages.getPageSize());
+             vos.setTotal(pages.getTotal());
+             for (#className# t : pages) {
+                 vos.add(getVo(t));
+             }
+             return vos;
+         }*/
+
+      /**
+         * 查询所有
+         */
+      /* public List<#className#Vo> listVo(#className#Search search) {
+             List<#className#> list = this.list(search);
+             List<#className#Vo> vos = new ArrayList<>();
+             for(#className# t:list){
+                 vos.add(getVo(t));
+             }
+             return vos;
+      }*/
+
+    /**
+    * 根据主键获取单个对像
+    */
+    public #className# get(int id) {
+        return #daoName#.get(id);
+
+    }
+
+    /**
+    * 保存
+    */
+    public void save(#className# t) {
+        #daoName#.save(t);
+    }
+
+    /**
+    * 更新
+    */
+    public void update(#className# t) {
+        #daoName#.update(t);
+    }
+
+    /**
+     * 删除
+     */
+    public void delete(int id) {
+        #daoName#.delete(id);
+    }
+
+    /* private #className#Vo getVo(#className# t) {
+             #className#Vo vo = new #className#Vo();
+             BeanUtils.updateCopyProperties(t, vo);
+             return vo;
+         }*/
+
+
+}

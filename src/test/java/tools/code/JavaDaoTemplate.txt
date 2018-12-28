@@ -1,0 +1,11 @@
+package #packageName#.dao;
+
+import com.ritian.common.BaseDao;
+import #packageName#.model.#className#;
+
+/**
+ * @author AUTHOR
+ * @date CREATE_DATE
+ **/
+public interface #className#Dao extends BaseDao<#className#,Integer> {
+}

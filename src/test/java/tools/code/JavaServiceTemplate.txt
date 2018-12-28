@@ -1,0 +1,69 @@
+package #packagePreName#.#packageExtName#.service;
+
+import com.ritian.common.BaseService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import #packageName#.dao.#className#Dao;
+import #packageName#.model.#className#;
+import #packageName#.model.search.#className#Search;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * @author AUTHOR
+ * @date CREATE_DATE
+ **/
+@Service
+public class #className#Service extends BaseService{
+    @Resource
+    private #className#Dao #daoName#;
+
+    /**
+    * 分页
+    */
+    public Page<#className#> page(#className#Search search) {
+        Page<#className#> pages = PageHelper.startPage(search.getPage(),search.getRows(),search.orderBy());
+        #daoName#.list(search);
+        return pages;
+    }
+    /**
+     * 查询所有
+     */
+     public List<#className#> list(#className#Search search) {
+            PageHelper.orderBy(search.orderBy());
+            return #daoName#.list(search);
+     }
+
+    /**
+    * 根据主键获取单个对像
+    */
+    public #className# get(int id) {
+        return #daoName#.get(id);
+
+    }
+
+    /**
+    * 保存
+    */
+    public void save(#className# t) {
+        #daoName#.save(t);
+    }
+
+    /**
+    * 更新
+    */
+    public void update(#className# t) {
+        #daoName#.update(t);
+    }
+
+    /**
+     * 删除
+     */
+    public void delete(int id) {
+        #daoName#.delete(id);
+    }
+
+
+}

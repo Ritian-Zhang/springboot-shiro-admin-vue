@@ -1,0 +1,121 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>列表页面</title>
+<jsp:include page="../../common/meta.jsp"></jsp:include>
+</head>
+<body>
+<div id="search">
+	<form id="queryForm" class="easyui-form" method="post" data-options="novalidate:false">
+    	<table cellpadding="5">
+    		<tr>
+    			<td>
+    				<a id="search();" href="javascript:;" onclick="searchHandler();" class="easyui-linkbutton">查询</a>
+    				<a href="javascript:;" class="easyui-linkbutton" onclick="resetSearch();">重置</a>
+    			</td>
+    		</tr>
+    	</table>
+    </form>
+</div>
+    	
+<table id="dg"></table>
+
+<div id="win"></div>
+
+<div id="tb">
+	<shiro:hasPermission name="#auth_path#:create">
+		<a href="#" class="easyui-linkbutton" onclick="create_();" data-options="iconCls:'icon-add',plain:true">新增</a>
+	</shiro:hasPermission>
+	<shiro:hasPermission name="#auth_path#:update">
+		<a href="#" class="easyui-linkbutton" onclick="update();" data-options="iconCls:'icon-edit',plain:true">编辑</a>
+	</shiro:hasPermission>
+	<shiro:hasPermission name="#auth_path#:delete">
+		<a href="#" class="easyui-linkbutton" onclick="remove_();" data-options="iconCls:'icon-remove',plain:true">删除</a>
+	</shiro:hasPermission>
+</div>
+
+<script type="text/javascript">
+var grid_;
+$(document).ready(function(){
+	grid_ = $('#dg').datagrid({
+	    columns:[[
+			#columns#
+	    ]],
+	    url:'${ctx}/#url_path#/list',
+	    pagination:true,checkOnSelect:false,selectOnCheck:false,rownumbers:true,fit: true,fitColumns:true,singleSelect:true,
+	    toolbar: "#tb"
+	});
+	$("#search").prependTo('.datagrid-toolbar');
+});
+
+
+
+function create_(){
+    $("#win").window({
+        title:"新增",
+        width:540,
+        height:250,
+        modal:true
+    });
+    $("#win").window("open");
+    $("#win").window("refresh", "${ctx}/#url_path#/create");
+}
+
+
+function update(){
+    var node = grid_.datagrid('getSelected');
+    if(node) {
+        $("#win").window({
+            title:"编辑",
+            width:540,
+            height:250,
+            modal:true
+        });
+        $("#win").window("open");
+        $("#win").window("refresh", "${ctx}/#url_path#/update?id="+node.id);
+    } else {
+        $.messager.alert('提示','请选择一条记录！','question');
+    }
+}
+
+function remove_() {
+    var node = $('#dg').datagrid('getSelected');
+    if(node){
+        $.messager.confirm('提示', '您确定要删除该数据吗？', function(r){
+            if (r){
+                $.post("${ctx}/#url_path#/delete",{id:node.id},function(data){
+                    var status = data.success;
+                    var msg = data.msg;
+                    if(status) {
+                        $.messager.alert('提示',msg,'info');
+                        $('#dg').datagrid('reload');
+                    } else {
+                        $.messager.alert('提示',msg,'question');
+                    }
+                },"json");
+            }
+        });
+    }else{
+        $.messager.alert('提示','请选择一条记录！','error');
+    }
+}
+
+//查询
+function searchHandler(){
+    var query = $("#queryForm").serializeObject(grid_.datagrid("options").queryParams);
+    $('#dg').datagrid('load',query);
+}
+
+//重置查询
+function resetSearch(){
+    $('#queryForm').form('clear');
+    searchHandler();
+}
+
+</script>
+</body>
+</html>
