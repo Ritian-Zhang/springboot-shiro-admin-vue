@@ -35,8 +35,8 @@ public class DruidConfig {
         registrationBean.addInitParameter("allow", "127.0.0.1");
         // IP黑名单 (存在共同时，deny优先于allow)
         registrationBean.addInitParameter("deny", "");
-        registrationBean.addInitParameter("loginUsername", "ritian");
-        registrationBean.addInitParameter("loginPassword", "ritian123456");
+        // registrationBean.addInitParameter("loginUsername", "ritian");
+        //registrationBean.addInitParameter("loginPassword", "ritian123456");
         registrationBean.addInitParameter("resetEnable", "false");
         return registrationBean;
     }

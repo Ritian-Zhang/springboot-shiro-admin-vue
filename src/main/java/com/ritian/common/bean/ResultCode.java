@@ -15,13 +15,19 @@ public enum ResultCode {
      */
     SUCCESS(0, "success"),
     /**
-     * 500
-     */
-    INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
-    /**
      * 操作失败
      */
-    FAIL(-100, "fail");
+    FAIL(1, "fail"),
+
+    /**
+     * 无效的token,未授权
+     */
+    SC_UNAUTHORIZED(401,"invalid token"),
+    /**
+     * 500
+     */
+    INTERNAL_SERVER_ERROR(500, "Internal Server Error");
+
 
 
     public int code;

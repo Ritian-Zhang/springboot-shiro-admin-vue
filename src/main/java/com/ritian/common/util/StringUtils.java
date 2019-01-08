@@ -2,10 +2,8 @@ package com.ritian.common.util;
 
 import org.apache.commons.lang3.text.StrBuilder;
 
-import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author ritian.Zhang
@@ -149,6 +147,37 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     public static boolean isArray(Object object)
     {
         return isNotNull(object) && object.getClass().isArray();
+    }
+
+    /**
+     * <p>Checks if a String is whitespace, empty ("") or null.</p>
+     *
+     * <pre>
+     * StringUtils.isBlank(null)      = true
+     * StringUtils.isBlank("")        = true
+     * StringUtils.isBlank(" ")       = true
+     * StringUtils.isBlank("bob")     = false
+     * StringUtils.isBlank("  bob  ") = false
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @return <code>true</code> if the String is null, empty or whitespace
+     */
+    public static boolean isBlank(String str) {
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return true;
+        }
+        for (int i = 0; i < strLen; i++) {
+            if ((Character.isWhitespace(str.charAt(i)) == false)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean isNotBlank(String str) {
+        return !StringUtils.isBlank(str);
     }
 
     /**

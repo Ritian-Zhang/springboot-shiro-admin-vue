@@ -1,10 +1,10 @@
 # 服务配置
 server:
   # 服务端口
-  port: 80
+  port: 8080
   servlet:
     # 项目contextPath
-    context-path: /
+    context-path: /shiro-admin
   tomcat:
     # tomcat 的URI编码
     uri-encoding: UTF-8

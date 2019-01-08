@@ -3,13 +3,13 @@ package com.ritian.modules.sys.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -22,7 +22,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_user")
-public class SysUser implements Serializable {
+public class SysUser{
     @TableId(type = IdType.AUTO)
     private Long id;
 
@@ -34,6 +34,7 @@ public class SysUser implements Serializable {
 
     private String email;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     private Date lastLoginTime;
