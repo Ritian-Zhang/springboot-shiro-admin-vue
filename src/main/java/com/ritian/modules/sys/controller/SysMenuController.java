@@ -5,6 +5,7 @@ import com.ritian.common.controller.BaseController;
 import com.ritian.modules.sys.entity.SysMenu;
 import com.ritian.modules.sys.service.ShiroService;
 import com.ritian.modules.sys.service.SysMenuService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,5 +38,14 @@ public class SysMenuController extends BaseController {
         List<SysMenu> menuList = sysMenuService.getUserMenuList(getUser());
         Set<String> permissions = shiroService.getUserPermissions(getUserId());
         return R.ok().put("menuList", menuList).put("permissions", permissions);
+    }
+
+    /**
+     * 所有菜单列表
+     */
+    @GetMapping("/list")
+    @RequiresPermissions("sys:menu:list")
+    public List<SysMenu> list() {
+        return sysMenuService.list(null);
     }
 }

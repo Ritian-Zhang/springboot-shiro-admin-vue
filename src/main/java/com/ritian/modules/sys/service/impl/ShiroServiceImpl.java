@@ -15,6 +15,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.*;
 
+/**
+ * @author ritian.Zhang
+ * @date 2018/12/29
+ */
 @Service
 public class ShiroServiceImpl implements ShiroService {
 

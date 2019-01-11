@@ -2,6 +2,7 @@ package com.ritian.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ritian.common.annotation.Log;
 import com.ritian.common.util.Constant;
 import com.ritian.modules.sys.entity.SysMenu;
 import com.ritian.modules.sys.entity.SysUser;

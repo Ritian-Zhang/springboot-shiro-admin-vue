@@ -80,7 +80,7 @@ public class SysLoginController extends BaseController {
         }
         SysUser user = sysUserService.queryByUsername(dto.getUsername());
         //账号不存在、密码错误
-        if (user == null || !user.getPassword().equals(new Sha256Hash(dto.getPassword(), SALT).toHex())) {
+        if (user == null || !user.getPassword().equals(new Sha256Hash(dto.getPassword(), user.getSalt()).toHex())) {
             return R.error("账号或密码不正确");
         }
         //账号锁定
@@ -88,5 +88,18 @@ public class SysLoginController extends BaseController {
             return R.error("账号已被锁定,请联系管理员");
         }
         return sysUserTokenService.createToken(user.getId());
+    }
+
+
+    /**
+     * 登出
+     */
+    /**
+     * 退出
+     */
+    @PostMapping("/sys/logout")
+    public R logout() {
+        sysUserTokenService.logout(getUserId());
+        return R.ok();
     }
 }

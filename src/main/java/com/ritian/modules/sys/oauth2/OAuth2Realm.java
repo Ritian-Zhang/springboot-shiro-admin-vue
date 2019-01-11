@@ -41,7 +41,7 @@ public class OAuth2Realm extends AuthorizingRealm {
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.setStringPermissions(permsSet);
-        return info;
+         return info;
     }
 
     /**

@@ -1,7 +1,6 @@
 package com.ritian.mapper;
 
 import com.ritian.ApplicationTests;
-import com.ritian.modules.sys.entity.SysUser;
 import com.ritian.modules.sys.mapper.SysUserMapper;
 import org.junit.Test;
 
@@ -23,8 +22,4 @@ public class MapperTest extends ApplicationTests {
         System.out.println(a / b);
     }
 
-    @Test
-    public void testAdd() {
-        sysUserMapper.insert(SysUser.builder().nickname("admin").build());
-    }
 }

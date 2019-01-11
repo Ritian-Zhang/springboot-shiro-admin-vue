@@ -7,6 +7,8 @@ import com.ritian.ApplicationTests;
 import com.ritian.modules.sys.entity.SysUser;
 import com.ritian.modules.sys.service.SysMenuService;
 import com.ritian.modules.sys.service.SysUserService;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -26,7 +28,7 @@ public class ServiceTest extends ApplicationTests {
     
     @Test
     public void add(){
-        sysUserService.save(SysUser.builder().nickname("js").username("tony").password("123456").build());
+        //sysUserService.save(SysUser.builder().nickname("js").username("tony").password("123456").build());
     }
     @Test
     public void list(){
@@ -46,5 +48,18 @@ public class ServiceTest extends ApplicationTests {
         Map<String,Object>  map  = new HashMap<>();
         map.put("username","a");
         sysUserService.listByPage(map);
+    }
+
+    @Test
+    public void delete(){
+        sysUserService.deleteBatch(new Long[]{6L});
+    }
+
+    @Test
+    public void sha(){
+        String salt = RandomStringUtils.randomAlphabetic(20);
+        System.out.println(salt);
+        String s = new Sha256Hash("123456", salt).toHex();
+        System.out.println(s);
     }
 }

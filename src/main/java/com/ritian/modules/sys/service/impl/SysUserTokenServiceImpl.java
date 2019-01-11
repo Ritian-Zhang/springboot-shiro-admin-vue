@@ -48,6 +48,10 @@ public class SysUserTokenServiceImpl extends ServiceImpl<SysUserTokenMapper, Sys
 
     @Override
     public void logout(long userId) {
-
+        //修改token
+        this.updateById(SysUserToken.builder().
+                userId(userId).
+                token(TokenGenerator.generateValue()).
+                build());
     }
 }
